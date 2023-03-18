@@ -1,0 +1,20 @@
+hardstatus string "[%n:%t]%?(%u)%?[%l]"
+hardstatus alwayslastline '%{= kR} [%= %-w (%n*%t) %?(%u)%? %+w %=%{= kR} %l]'
+caption string "%{= dd} "
+
+# huge scrollback buffer
+defscrollback 1000
+
+# no welcome message
+startup_message off
+vbell off
+shell -$SHELL
+bind s split
+bind j focus down
+bind k focus up
+bind h focus left
+bind l focus right
+bind = resize =
+bind + resize +1
+bind - resize -1
+altscreen on
