@@ -1,0 +1,5 @@
+pager = "less -R"
+[edit]
+  command = "vim"
+[keepassxc]
+  database = "~/Documents/keepass/Database.kdbx"
