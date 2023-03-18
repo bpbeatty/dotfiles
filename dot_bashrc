@@ -1,0 +1,58 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+
+unset rc
+
+# vi movement in bash shell
+set -o vi
+shopt -s histappend
+HISTCONTROL=ignoredup
+PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
+if [ "$PS1" ]; then
+   PS1="[\u@\h:\l \W]\\$ "
+fi
+
+if [ -f /run/.containerenv ]; then
+   ## Distrobox Aliases
+   alias locate=plocate
+   alias grep='grep --color=auto'
+   alias l.='ls -d .* --color=auto'
+   alias ll='ls -l --color=auto'
+   alias ls='ls --color=auto'
+   eval "$(starship init bash)";
+else
+   ## Host Aliases
+   alias fs="flatpak search --columns=description,application,version";
+   mesa=`flatpak info org.freedesktop.Platform.GL.default//22.08 | awk -F': ' '/Version/ {print $2}' | uniq`
+   echo mesa: $mesa
+fi
+
+alias duall="echo 'du -sch .[!.]* * | sort -h'; du -sch .[!.]* * | sort -h"
+alias me='ps -fU $(whoami)'
+
+kernel=`uname -r`
+echo kernel: $kernel
