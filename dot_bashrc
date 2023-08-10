@@ -40,6 +40,7 @@ if [ -f /run/.containerenv ]; then
    ## Distrobox Aliases
    alias locate=plocate
    alias grep='grep --color=auto'
+   alias just='just --unstable'
    alias l.='ls -d .* --color=auto'
    alias ll='ls -l --color=auto'
    alias ls='ls --color=auto'
